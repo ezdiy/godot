@@ -1115,6 +1115,7 @@ void ResourceImporterScene::get_import_options(List<ImportOption> *r_options, in
 	bool scenes_out = p_preset == PRESET_MULTIPLE_SCENES || p_preset == PRESET_MULTIPLE_SCENES_AND_MATERIALS;
 	bool animations_out = p_preset == PRESET_SEPARATE_ANIMATIONS || p_preset == PRESET_SEPARATE_MESHES_AND_ANIMATIONS || p_preset == PRESET_SEPARATE_MATERIALS_AND_ANIMATIONS || p_preset == PRESET_SEPARATE_MESHES_MATERIALS_AND_ANIMATIONS;
 
+	r_options->push_back(ImportOption(PropertyInfo(Variant::BOOL, "nodes/verbatim_names"), false));
 	r_options->push_back(ImportOption(PropertyInfo(Variant::FLOAT, "nodes/root_scale", PROPERTY_HINT_RANGE, "0.001,1000,0.001"), 1.0));
 	r_options->push_back(ImportOption(PropertyInfo(Variant::STRING, "nodes/custom_script", PROPERTY_HINT_FILE, script_ext_hint), ""));
 	r_options->push_back(ImportOption(PropertyInfo(Variant::INT, "nodes/storage", PROPERTY_HINT_ENUM, "Single Scene,Instanced Sub-Scenes"), scenes_out ? 1 : 0));
@@ -1269,6 +1270,11 @@ Error ResourceImporterScene::import(const String &p_source_file, const String &p
 	if (bool(p_options["skins/use_named_skins"])) {
 		import_flags |= EditorSceneImporter::IMPORT_USE_NAMED_SKIN_BINDS;
 	}
+
+	if (bool(p_options["nodes/verbatim_names"])) {
+		import_flags |= EditorSceneImporter::IMPORT_VERBATIM_NAMES;
+	}
+
 
 	Error err = OK;
 	List<String> missing_deps; // for now, not much will be done with this

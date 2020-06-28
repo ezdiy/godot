@@ -308,7 +308,7 @@ class EditorSceneImporterGLTF : public EditorSceneImporter {
 	String _sanitize_scene_name(const String &name);
 	String _gen_unique_name(GLTFState &state, const String &p_name);
 
-	String _sanitize_bone_name(const String &name);
+	String _sanitize_bone_name(GLTFState &state, const String &name);
 	String _gen_unique_bone_name(GLTFState &state, const GLTFSkeletonIndex skel_i, const String &p_name);
 
 	Ref<Texture2D> _get_texture(GLTFState &state, const GLTFTextureIndex p_texture);
